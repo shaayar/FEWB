@@ -1,0 +1,194 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   Design Tokens
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+
+  /* Base */
+  --background: #f1f6f4;
+  --surface: #ffffff;
+  --foreground: #171717;
+
+  /* Brand Colors */
+  --mint: #d9e8e2;
+  --forsythia: #ffc801;
+  --saffron: #ff9932;
+  --nocturnal: #114c5a;
+  --oceanic: #172b36;
+
+  /* Typography */
+  --font-primary: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* Motion */
+  --timing-micro: 150ms;
+  --timing-layout: 350ms;
+
+  --easing-micro: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --easing-layout: cubic-bezier(0.42, 0, 0.58, 1);
+
+  --transition-micro: background-color var(--timing-micro)
+    var(--easing-micro);
+  --transition-layout: all var(--timing-layout)
+    var(--easing-layout);
+}
+
+/* ==========================================================================
+   Tailwind Theme Tokens
+   ========================================================================== */
+
+@theme inline {
+  /* Colors */
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-foreground: var(--foreground);
+
+  --color-mint: var(--mint);
+  --color-forsythia: var(--forsythia);
+  --color-saffron: var(--saffron);
+  --color-nocturnal: var(--nocturnal);
+  --color-oceanic: var(--oceanic);
+
+  /* Fonts */
+  --font-primary: var(--font-primary);
+  --font-mono: var(--font-mono);
+}
+
+/* ==========================================================================
+   Dark Theme
+   ========================================================================== */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+
+    --background: #0a0a0a;
+    --surface: #111827;
+    --foreground: #ededed;
+
+    --mint: #233832;
+    --forsythia: #ffd84d;
+    --saffron: #ffad4d;
+    --nocturnal: #7fc9d7;
+    --oceanic: #dce8ec;
+  }
+}
+
+/* ==========================================================================
+   Base Styles
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-primary);
+  line-height: 1.5;
+
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==========================================================================
+   Components
+   ========================================================================== */
+
+button {
+  transition: var(--transition-micro);
+}
+
+details[open] {
+  animation: slide-down var(--timing-layout)
+    var(--easing-layout) forwards;
+}
+
+/* ==========================================================================
+   Animations
+   ========================================================================== */
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   Responsive Helpers
+   ========================================================================== */
+
+.features-accordion {
+  display: flex;
+}
+
+.features-bento {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .features-accordion {
+    display: none !important;
+  }
+
+  .features-bento {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .features-bento {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.connection-line {
+  stroke-dasharray: 10;
+  stroke-dashoffset: 10;
+  animation: flow 3s linear infinite;
+}
+
+@keyframes flow {
+  from {
+    stroke-dashoffset: 20;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
